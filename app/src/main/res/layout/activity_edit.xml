@@ -26,7 +26,7 @@
         android:id="@+id/button8"
         android:layout_alignParentBottom="true"
         android:textColor="@color/text"
-        android:onClick="clickSignUp" />
+         />
 
     <LinearLayout
         android:orientation="vertical"
