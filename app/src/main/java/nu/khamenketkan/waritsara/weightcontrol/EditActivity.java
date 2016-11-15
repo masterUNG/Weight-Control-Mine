@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+//คลาส ที่ทำหน้าที่ในการ แก้ไข user
 public class EditActivity extends AppCompatActivity {
 
     //Explicit
@@ -55,6 +56,7 @@ public class EditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                //Get Value from Edit Text ไปไว้ที่ String
                 nameString = nameEditText.getText().toString().trim();
                 surnameString = surnameEditText.getText().toString().trim();
                 weightString = weightEditText.getText().toString().trim();
@@ -62,10 +64,12 @@ public class EditActivity extends AppCompatActivity {
                 ageString = ageEditText.getText().toString().trim();
                 sexString = sexEditText.getText().toString().trim();
 
+                //Assign Value to index โดย 0 ==> male, 1 ==> female
                 if (sexString.equals(sexStrings[1])) {
                     index = 1;
                 }   // if
 
+                //คือการคำนวนค่าของ BMR ใหม่
                 myCalculateBMR = new MyCalculateBMR(EditActivity.this,
                         index,
                         Double.parseDouble(weightString),
@@ -73,13 +77,15 @@ public class EditActivity extends AppCompatActivity {
                         Double.parseDouble(ageString));
                 String strBMR = myCalculateBMR.myBMR();
 
-                //Delete All SQLite
+                //Delete All SQLite ลบค่าเก่าทั้งหมดออกไป
                 sqLiteDatabase.delete(MyManage.user_table, null, null);
 
+                //Update Value to SQLite
                 MyManage myManage = new MyManage(EditActivity.this);
                 myManage.addUser(nameString, surnameString, weightString,
                         heightString, sexString, ageString, strBMR);
 
+                //Alert 4 วินาที ว่า สำเร็จ
                 Toast.makeText(EditActivity.this, "แก้ไขเรียบร้อยแล้ว คะ", Toast.LENGTH_SHORT).show();
                 finish();
 
