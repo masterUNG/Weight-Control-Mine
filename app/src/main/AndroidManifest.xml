@@ -32,7 +32,9 @@
         <activity
             android:name=".AddBurnActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".EditActivity"></activity>
+        <activity
+            android:name=".EditActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

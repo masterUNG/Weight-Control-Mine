@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
             douTotalCalories, douTotalBurn;
     private ImageView imageView;
     private boolean aBoolean = true;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
         burnTextView = (TextView) findViewById(R.id.textView12);
         myBMRTextView = (TextView) findViewById(R.id.textView13);
         imageView = (ImageView) findViewById(R.id.imageView);
+        button = (Button) findViewById(R.id.button4);
+
+
+        //Button Controller
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, EditActivity.class));
+            }
+        });
 
 
         myManage = new MyManage(this);
