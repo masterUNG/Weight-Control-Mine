@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+//คือหน้าที่แสดง วันปัจจุบันว่า Burn อะไร ? ไปบ้าง
+// โดยการ ListView รายการ Buen ที่ Where วันปัจจุบันเท่านั้น
 public class BurnListView extends AppCompatActivity {
     //Explicit
     private String dateString;
@@ -19,6 +21,7 @@ public class BurnListView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_burn_list_view);
 
+        //นี่คือการรับ Date ปัจจุบัน จาก Main Activity
         dateString = getIntent().getStringExtra("Date");
 
         TextView textView = (TextView) findViewById(R.id.txtBurnList);
@@ -38,6 +41,8 @@ public class BurnListView extends AppCompatActivity {
 
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
+
+        //นี่คือการ สร้าง Cursor ที่ Where ที่ Column เท่ากับ Date ดึงจำนวนที่เท่า Current Date มาแสดงเท่านั้น
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM burnTABLE WHERE Date = " + "'" + dateString + "'", null);
         cursor.moveToFirst();
         String[] exerciseStrings = new String[cursor.getCount()];
