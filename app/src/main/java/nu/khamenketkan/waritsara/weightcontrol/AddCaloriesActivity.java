@@ -4,9 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.content.PermissionChecker;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -54,7 +53,7 @@ public class AddCaloriesActivity extends AppCompatActivity {
             foodStrings[i] = cursor.getString(cursor.getColumnIndex(MyManage.column_food));
             calStrings[i] = cursor.getString(cursor.getColumnIndex(MyManage.column_calories));
             unitStrings[i] = cursor.getString(cursor.getColumnIndex(MyManage.column_unit));
-            valueStrings[i] = calStrings[i] + " Kcal/" + unitStrings[i];
+            valueStrings[i] = calStrings[i];
 
             cursor.moveToNext();
         } // for
