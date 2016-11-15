@@ -20,7 +20,8 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Explicit
+    //Explicit  การประกาศตัวแปร เพื่อ บอกให้มือถือ จัดเตรียมแรมให้เพียงพอต่อการทำงาน ของแอฟ
+    // private หมายถึง ตัวแปรที่ประกาศ สามารถใช้ได้ใน คลาสนี่เท่านั้น
     private MyManage myManage;
     private MyData myData;
     private TextView dateTextview, nameTextView, bmrTextView,
@@ -32,12 +33,15 @@ public class MainActivity extends AppCompatActivity {
     private boolean aBoolean = true;
     private Button button;
 
+    // นี่คือเมธอด หลัก หรือเมธอดแรกที่จะทำงาน เมื่อคลาสนี่ถูกเรียกใช้
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Bind Widget ให้ทำการค้นหารายชื่อจาก table ใน file ที่ชื่อว่า r.จาวา
+        //Bind Widget คือกระบวนการ ผูกความสัมพันธ์ ระหว่างตัวแปร ที่อยู่ใน คลาส
+        // และ Widget ที่อยู่ ใน Layout
+
         dateTextview = (TextView) findViewById(R.id.textView8);
         nameTextView = (TextView) findViewById(R.id.textView9);
         bmrTextView = (TextView) findViewById(R.id.textView10);
@@ -48,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.button4);
 
 
-        //Button Controller
+        //Button Controller คือการ ทำให้ ปุ่มสามารถคลิก
+        // และ เก็บเหตุการณ์ ของการคลิกได้ จากตัวอย่าง เมื่อคลิกจะย้ายการทำงานไปที่ EditActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,13 +61,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        //การสร้าง Object ของคลาส MyManage
         myManage = new MyManage(this);
 
         //Test Add Value
         // testAddValue();
 
-        //Add First Data
+        //Add First Data    คือการ เพิ่มรายการอาหาร/กิจกรรมออกกำลังกาย
+        // ไปที่ foodTABLE, exerciseTABLE
         addFirstData();
 
         //CheckUserTABLE
@@ -287,7 +293,10 @@ public class MainActivity extends AppCompatActivity {
 
     } //checkUser
 
-    //จะทำการลบ foodTABLE  และ exerciseTABLE ก่อน แล้วค่อย Add Value ใหม่ทุกๆ ครั้งที่เปิด
+    //จะทำการลบ foodTABLE  และ exerciseTABLE ก่อน
+    // แล้วค่อย Add Value ใหม่ทุกๆ ครั้งที่เปิด เพื่อ ให้สามารถ เพิ่ม รายการของ อาหาร
+    // หรือ กิจกรรมที่ทำได้
+
     private void addFirstData() {
 
         //Delete All Data
@@ -319,6 +328,8 @@ public class MainActivity extends AppCompatActivity {
 
     } //addFirstData
 
+    //เมธอด ที่ ทดสอบระบบการ เพิ่ม Value ไปที่ Table ของ  SQLite
+    // แต พอเราทำการทดสอบ สำเร็จ เลยไม่ได้ใช้แล้ว
     private void testAddValue() {
 
         myManage.addFood("food", "unit", "calories");

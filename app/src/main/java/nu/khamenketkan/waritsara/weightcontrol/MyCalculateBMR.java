@@ -32,7 +32,7 @@ public class MyCalculateBMR {
         double[] femaleFactorDoubles = new double[]{665, 9.6, 1.8, 4.7};
 
         switch (sexAnInt) {
-            case 0:
+            case 0: // For Male
 
                 BMR = maleFactorDoubles[0]
                         + (maleFactorDoubles[1] * weightADouble) +
@@ -40,7 +40,7 @@ public class MyCalculateBMR {
                         (maleFactorDoubles[3] * ageADouble);
 
                 break;
-            case 1:
+            case 1: // For FeMale
 
                 BMR = femaleFactorDoubles[0]
                         + (femaleFactorDoubles[1] * weightADouble) +

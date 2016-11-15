@@ -4,8 +4,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -14,6 +16,11 @@ public class EditActivity extends AppCompatActivity {
             weightEditText, heightEditText,
             ageEditText, sexEditText;
     private Button button;
+    private MyCalculateBMR myCalculateBMR;
+    private String nameString, surnameString, weightString,
+            heightString, ageString, sexString, bmrString;
+    private String[] sexStrings = new String[]{"Male", "Female"};
+    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +38,7 @@ public class EditActivity extends AppCompatActivity {
 
 
         //Load Value From SQLite to Display on Edit Text
-        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+        final SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE", null);
         cursor.moveToFirst();
@@ -42,6 +49,43 @@ public class EditActivity extends AppCompatActivity {
         heightEditText.setText(cursor.getString(cursor.getColumnIndex(MyManage.column_Height)));
         ageEditText.setText(cursor.getString(cursor.getColumnIndex(MyManage.column_Age)));
         sexEditText.setText(cursor.getString(cursor.getColumnIndex(MyManage.column_Sex)));
+
+        //Button Controller
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                nameString = nameEditText.getText().toString().trim();
+                surnameString = surnameEditText.getText().toString().trim();
+                weightString = weightEditText.getText().toString().trim();
+                heightString = heightEditText.getText().toString().trim();
+                ageString = ageEditText.getText().toString().trim();
+                sexString = sexEditText.getText().toString().trim();
+
+                if (sexString.equals(sexStrings[1])) {
+                    index = 1;
+                }   // if
+
+                myCalculateBMR = new MyCalculateBMR(EditActivity.this,
+                        index,
+                        Double.parseDouble(weightString),
+                        Double.parseDouble(heightString),
+                        Double.parseDouble(ageString));
+                String strBMR = myCalculateBMR.myBMR();
+
+                //Delete All SQLite
+                sqLiteDatabase.delete(MyManage.user_table, null, null);
+
+                MyManage myManage = new MyManage(EditActivity.this);
+                myManage.addUser(nameString, surnameString, weightString,
+                        heightString, sexString, ageString, strBMR);
+
+                Toast.makeText(EditActivity.this, "แก้ไขเรียบร้อยแล้ว คะ", Toast.LENGTH_SHORT).show();
+                finish();
+
+            }   // onClick
+        });
+
 
     }   // Main Method
 
