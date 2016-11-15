@@ -4,14 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+// เพิ่ม กิจกรรมการออกกำลังกาย ใน ListView ที่ แสดงการ Burn
 public class AddBurnActivity extends AppCompatActivity {
 
     //Explicit
@@ -22,11 +22,12 @@ public class AddBurnActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_burn);
 
+        //เป็นการดึงเวลาของเครื่องมาใช้งาน
         dateString = getIntent().getStringExtra("Date");
         TextView textView = (TextView) findViewById(R.id.txtBurnAdd);
         textView.setText("Date = " + dateString);
 
-        //Create ListView
+        //Create ListView นี่คือการสร้าง ListView สำหรับแสดงรายชื่อของกิจกรรม Burn
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM exerciseTABLE", null);
@@ -57,7 +58,8 @@ public class AddBurnActivity extends AppCompatActivity {
     } //Main Method
 
 
-
+    //นี่คือการคำนวน จำนวนการ Burn เช่น วิ่ง 1hr Burn 1200
+    // แต่ถ้าวิ่ง ครึ่งชัวโมง Burn 600 (1200 x 0.5)
     private void chooseAmount(final String exerciseString, final String burnString) {
 
         CharSequence[] charSequences = new CharSequence[]{"30 นาที", "60 นาที","90 นาที","120 นาที","150 นาที","180 นาที"};
@@ -65,6 +67,7 @@ public class AddBurnActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setIcon(R.drawable.doremon48);
         builder.setTitle(exerciseString);
+        //คือการเลือกแล้วเอาเลย
         builder.setSingleChoiceItems(charSequences, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
